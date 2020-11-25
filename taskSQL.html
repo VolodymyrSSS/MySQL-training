@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>SQL task</title>
+    <style>
+      body {
+        background-color: tan;
+        margin: 0;
+        font-family: Verdana, sans-serif;
+      }
+
+      .title {
+        color: red;
+        text-align: center;
+        font-weight: 700;
+      }
+
+      .code-ex {
+        width: 50%;
+        font-family: sans-serif;
+        background-color: #bebebe;
+        font-size: large;
+        padding-left: 15px;
+        margin: 0 auto;
+      }
+
+      .task {
+        width: 50%;
+        padding: 15px 25px;
+        color: navy;
+        background-color: #e2e2e2;
+        margin: 35px auto;
+      }
+
+      .code-ex {
+        width: 50%;
+        font-family: sans-serif;
+        font-style: italic;
+        background-color: #bebebe;
+        font-size: large;
+        padding-left: 15px;
+        margin: 0 auto;
+      }
+
+      p {
+        width: 80%;
+        margin: 0 auto;
+      }
+
+      pre {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: larger;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2 class="title">SQL tasks</h2>
+
+    <h4 class="task">
+      Create a folder 'OurUsers'<br>
+      Start SQLite and create database with the name 'PurchaseCount' in the folder<br>
+      In the db create a table 'Test' with 2 columns: ID and Value<br>
+      Verify the creation of the table<br>
+      Insert two rows with the data: id-digit, value-text into the table 'Test'<br>
+      Check the data (or get/check the table with created data)<br>
+      <br>
+      Quit the db 'PurchaseCount'<br>
+      enter again in db 'PurchaseCount'<br>
+      add more data in the table 'Test'<br>
+      check the table 'Test'<br>
+      delete the table 'Test'<br>
+      <br>
+    </h4>
+
+    <p><b>My solution</b>:</p>
+
+    <p class="code-ex" style="width: 70%">
+      <code>
+        <pre>
+          create a folder 'OurUsers'
+
+          sqlite3 PurchaseCount.db
+
+          CREATE TABLE Test(id INT, value TEXT);
+
+          CREATE TABLE Test(id INT, value TEXT); -> Error: table Test already exists
+
+          INSERT INTO Test(id, value) VALUES (1, 'abc');
+          INSERT INTO Test(id, value) VALUES (2, 'def');
+
+          SELECT * FROM Test;
+
+          .quit
+
+          go to folder level and in the terminal 
+          .open PurchaseCount.db
+
+          INSERT INTO Test(id, value) VALUES (3, 'ghi');
+
+          SELECT * FROM Test;
+
+          DROP TABLE Test;
+        </pre>
+      </code>
+    </p>
+    <br />
+
+    <h4 class="task">
+      In the db 'PurchaseCount' create a table 'Foo' with 4 columns: ID, value, ord_num, value2<br>
+      Insert the data (3 rows): id-digit, starting from 25; value-text, text-'purchases'; ord_num-digit, starting from 1; value2-digit, quantity of purchases;<br>
+      Check the table with created data<br>
+      Add more data at ones (4 rows); for last two: ord_num = 6, and ord_num = 7, value2-digit, free<br>
+      Check the table with created data<br>
+      get the column data 'value2'<br>
+      get the column data id<br>
+      get the row data for id = 26<br>
+      get the row data except id = 26 and id = 30<br>
+      get the row data only for id = 26 and id = 30<br>
+      get the row data with id < 28<br>
+      get the row data only for id = 25 and id >= 29<br>
+      get the cell data: find the id with the 'value2' = 9<br>
+      get the cell data: find the value2 with the id = 29<br>
+      <br>
+    </h4>
+
+    <p><b>My solution</b>:</p>
+
+    <p class="code-ex" style="width: 70%">
+      <code>
+        <pre>
+          CREATE TABLE Foo(id INT, value TEXT, ord_num INT, value2 INT); 
+
+          INSERT INTO Foo(id, value, ord_num, value2) VALUES (25, 'purchases', 25, 14);
+          INSERT INTO Foo(id, value, ord_num, value2) VALUES (26, 'purchases', 26, 19);
+          INSERT INTO Foo(id, value, ord_num, value2) VALUES (27, 'purchases', 27, 21);
+
+          SELECT * FROM Foo;
+
+          INSERT INTO Foo(id, value, ord_num, value2) VALUES (28, 'purchases', 26, 6), (29, 'purchases', 29, 24), (30, 'purchases', 6, 9), (31, 'purchases', 7, 17);
+
+          SELECT * FROM Foo;
+
+          SELECT value2 FROM Foo;
+
+          SELECT id FROM Foo;
+
+          SELECT * FROM Foo WHERE id = 25;
+
+          SELECT * FROM Foo WHERE id != 26 AND id != 30;
+          // or symbol != could be replace by <> or operator 'NOT'
+
+          SELECT * FROM Foo WHERE id = 26 OR id = 30;
+
+          SELECT * FROM Foo WHERE id < 28;
+
+          SELECT * FROM Foo WHERE id = 25 OR id >= 29;
+
+          SELECT id FROM Foo WHERE value2 = 9;
+
+          SELECT value2 FROM Foo WHERE id = 29;
+
+        </pre>
+      </code>
+    </p>
+    <br />
+
+    <h4 class="task">
+      Get a list of first 10 customer's address with their shopping cart count<br>
+       (how many products they bought) where customer first name starts from 'John'.
+    <br />
+    </h4>
+
+    <p><b>My solution</b>:</p>
+
+    <p class="code-ex" style="width: 70%">
+      <code>
+        <pre>
+          SELECT * FROM Buyers; <- look at the table
+          SELECT FirstName FROM Buyers; <- look at all FirstNames in a table
+          SELECT * FROM Buyers WHERE id<=10; <- get first 10 buyers
+          SELECT * FROM Buyers WHERE FirstName='John'; <- Select all buyers with the FirstName 'John'
+
+          // solution to the task:
+          SELECT * FROM Buyers WHERE FirstName='John' AND id<=10;
+        </pre>
+      </code>
+    </p>
+
+    <h4 class="task"> <b>Select from multiply set: cartesian product (декартовий здобуток)</b><br>
+      Є список студентів, які навчаються на освітньому курсі 'бакалавр' і відвідали ІТ курси<br>
+      CREATE TABLE Bachelor(name TEXT, course TEXT);<br>
+      INSERT INTO Bachelor(name, course) VALUES('Stephany', 'JS'), ('Mark', 'CSS'), ('Sem', 'NodeJS');<br>
+      Також, є список студентів які навчаються на освітньому курсі 'магістр' і також відвідали ІТ курси<br>
+      CREATE TABLE Master(name TEXT, course TEXT);<br>
+      INSERT INTO Master(name, course) VALUES('Bob', 'JS'), ('Bob', 'NodeJS');<br>
+      У нас також є загальний лист зі студентами, які відвідали ІТ-курси.<br>
+      CREATE TABLE Student2(name TEXT, course TEXT);<br>
+      INSERT INTO Student2(name, course) VALUES('Stephany', 'JS'), ('Bob', 'JS'), ('Sem', 'NodeJS'), ('Mark', 'CSS'), ('Bob', 'NodeJS');<br>
+      <br>
+      Віднайти всіх студентів, які відвідували хоча би один курс з магістром Bob<br>
+    <br />
+    </h4>
+
+    <p><b>My solution</b>:</p>
+
+    <p class="code-ex" style="width: 70%">
+      <code>
+        <pre>
+          // У разі якщо ми знаємо які курси відвiдував Bob то можна віднайти так:
+          SELECT * FROM Student2 WHERE course='JS' OR course='NodeJS'
+          // або так:
+          SELECT * FROM Student2 WHERE course IN ('JS', 'NodeJS');
+
+          // У разі якщо ми не знаємо які курси відвідував Bob то можна віднайти так:
+          SELECT * FROM Student2 WHERE course IN(SELECT course FROM Student2 WHERE name='Bob');
+        </pre>
+      </code>
+    </p>
+
+
+    
+    <script></script>
+  </body>
+</html>
